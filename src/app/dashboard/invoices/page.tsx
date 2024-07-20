@@ -1,6 +1,6 @@
 
 
- import { fetchInvoicesPages } from '@/src/lib/data';
+import { getInvoicesPages } from '@/src/lib/repository/invoice-repository';
 import { lusitana } from '@/src/ui/fonts';
 import { CreateInvoice } from '@/src/ui/invoices/buttons';
 import Pagination from '@/src/ui/invoices/pagination';
@@ -24,7 +24,7 @@ export default async function Page({
 }) {
   const query = searchParams?.query || '';
   const currentPage = Number(searchParams?.page) || 1;
-  const totalPages = await fetchInvoicesPages(query);
+  const totalPages = await getInvoicesPages(query);
 
 
   return (
