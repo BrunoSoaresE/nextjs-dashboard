@@ -1,9 +1,8 @@
 import Link from 'next/link';
-
+import NavLinks from '@/src/ui/invoices/dashboard/nav-links';
+import AcmeLogo from '@/src/ui/acme-logo';
 import { PowerIcon } from '@heroicons/react/24/outline';
 import { signOut } from '@/auth';
-import AcmeLogo from '../acme-logo';
-import NavLinks from './nav-links';
 
 export default function SideNav() {
   return (

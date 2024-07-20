@@ -1,13 +1,15 @@
 'use client';
-
-import { AtSymbolIcon, KeyIcon, ArrowRightIcon, ExclamationCircleIcon } from "@heroicons/react/24/outline";
-import { useActionState } from "react";
-import { Button } from "./button";
-import { lusitana } from "./fonts";
-import { authenticate } from "../lib/actions/authenticate-actions";
-
  
-
+import {
+  AtSymbolIcon,
+  KeyIcon,
+  ExclamationCircleIcon,
+} from '@heroicons/react/24/outline';
+import { ArrowRightIcon } from '@heroicons/react/20/solid';
+import { Button } from '@/src/ui/button';
+import { useActionState } from 'react';
+import { authenticate } from '@/src/lib/actions';
+import { lusitana } from './fonts';
  
 export default function LoginForm() {
   const [errorMessage, formAction, isPending] = useActionState(

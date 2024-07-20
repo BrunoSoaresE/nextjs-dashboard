@@ -1,14 +1,14 @@
-
-
-import { getInvoicesPages } from '@/src/lib/repository/invoice-repository';
-import { lusitana } from '@/src/ui/fonts';
-import { CreateInvoice } from '@/src/ui/invoices/buttons';
 import Pagination from '@/src/ui/invoices/pagination';
-import Table from '@/src/ui/invoices/table';
 import Search from '@/src/ui/search';
+import Table from '@/src/ui/invoices/table';
+import { CreateInvoice } from '@/src/ui/invoices/buttons';
+import { lusitana } from '@/src/ui/fonts';
 import { InvoicesTableSkeleton } from '@/src/ui/skeletons';
-import { Metadata } from 'next';
 import { Suspense } from 'react';
+import { fetchInvoicesPages } from '@/src/lib/data';
+ 
+
+ import { Metadata } from 'next';
  
 export const metadata: Metadata = {
   title: 'Invoices',
@@ -24,7 +24,7 @@ export default async function Page({
 }) {
   const query = searchParams?.query || '';
   const currentPage = Number(searchParams?.page) || 1;
-  const totalPages = await getInvoicesPages(query);
+  const totalPages = await fetchInvoicesPages(query);
 
 
   return (

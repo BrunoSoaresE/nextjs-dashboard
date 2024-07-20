@@ -1,7 +1,7 @@
 
+import SideNav from '@/src/ui/invoices/dashboard/sidenav';
 export const experimental_ppr = true;
 
-import SideNav from '@/src/ui/dashboard/sidenav';
 import { Metadata } from 'next';
  
 export const metadata: Metadata = {
