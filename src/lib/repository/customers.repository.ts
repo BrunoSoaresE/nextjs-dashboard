@@ -4,7 +4,7 @@ import { formatCurrency } from '../utils';
 
 
 
-export async function fetchCustomers(): Promise<CustomerField[]> {
+export async function getCustomers(): Promise<CustomerField[]> {
   try {
     const data = await sql<CustomerField>`
       SELECT
@@ -18,11 +18,11 @@ export async function fetchCustomers(): Promise<CustomerField[]> {
     return customers;
   } catch (err) {
     console.error('Database Error:', err);
-    throw new Error('Failed to fetch all customers.');
+    throw new Error('Failed to get all customers.');
   }
 }
 
-export async function fetchFilteredCustomers(query: string): Promise<FormattedCustomersTable[]> {
+export async function getFilteredCustomers(query: string): Promise<FormattedCustomersTable[]> {
   try {
     const data = await sql<CustomersTableType>`
 		SELECT
@@ -51,6 +51,6 @@ export async function fetchFilteredCustomers(query: string): Promise<FormattedCu
     return customers;
   } catch (err) {
     console.error('Database Error:', err);
-    throw new Error('Failed to fetch customer table.');
+    throw new Error('Failed to get customer table.');
   }
 }

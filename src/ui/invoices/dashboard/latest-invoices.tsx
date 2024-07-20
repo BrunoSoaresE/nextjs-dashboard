@@ -3,10 +3,10 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import { lusitana } from '@/src/ui/fonts';
 import { LatestInvoice } from '@/src/lib/definitions';
-import { fetchLatestInvoices } from '@/src/lib/repository/invoices.repository';
+import { getLatestInvoices } from '@/src/lib/repository/invoices.repository';
 
 export default async function LatestInvoices() {
-  const latestInvoices = await fetchLatestInvoices();
+  const latestInvoices = await getLatestInvoices();
 
 
   return (

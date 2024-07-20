@@ -5,7 +5,7 @@ import { CreateInvoice } from '@/src/ui/invoices/buttons';
 import { lusitana } from '@/src/ui/fonts';
 import { InvoicesTableSkeleton } from '@/src/ui/skeletons';
 import { Suspense } from 'react';
-import { fetchInvoicesPages } from '@/src/lib/repository/invoices.repository';
+import { getInvoicesPages } from '@/src/lib/repository/invoices.repository';
  
 
  import { Metadata } from 'next';
@@ -24,7 +24,7 @@ export default async function Page({
 }) {
   const query = searchParams?.query || '';
   const currentPage = Number(searchParams?.page) || 1;
-  const totalPages = await fetchInvoicesPages(query);
+  const totalPages = await getInvoicesPages(query);
 
 
   return (

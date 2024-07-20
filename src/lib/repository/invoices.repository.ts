@@ -5,11 +5,11 @@ import { formatCurrency } from '../utils';
 import { LatestInvoiceRaw, InvoicesTable, InvoiceForm, InvoicesCards, LatestInvoice } from '@/src/models/invoice';
 
 
-export async function fetchLatestInvoices(): Promise<LatestInvoice[]> {
+export async function getLatestInvoices(): Promise<LatestInvoice[]> {
   try {
 
-    console.log('Fetching fetchLatestInvoices...');
-    console.log('Fetching fetchLatestInvoices...');
+    console.log('get getLatestInvoices...');
+    console.log('get getLatestInvoices...');
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
 
@@ -22,8 +22,8 @@ export async function fetchLatestInvoices(): Promise<LatestInvoice[]> {
       ORDER BY invoices.date DESC
       LIMIT 5`;
     
-    console.log('Data fetch completed after 3 seconds. fetchLatestInvoices');
-    console.log('Data fetch completed after 3 seconds. fetchLatestInvoices');
+    console.log('Data get completed after 3 seconds. getLatestInvoices');
+    console.log('Data get completed after 3 seconds. getLatestInvoices');
     
     
 
@@ -37,11 +37,11 @@ export async function fetchLatestInvoices(): Promise<LatestInvoice[]> {
     return latestInvoices;
   } catch (error) {
     console.error('Database Error:', error);
-    throw new Error('Failed to fetch the latest invoices.');
+    throw new Error('Failed to get the latest invoices.');
   }
 }
 
-export async function fetchCardData(): Promise<InvoicesCards> {
+export async function getCardData(): Promise<InvoicesCards> {
   try {
     // You can probably combine these into a single SQL query
     // However, we are intentionally splitting them to demonstrate
@@ -73,12 +73,12 @@ export async function fetchCardData(): Promise<InvoicesCards> {
 
   } catch (error) {
     console.error('Database Error:', error);
-    throw new Error('Failed to fetch card data.');
+    throw new Error('Failed to get card data.');
   }
 }
 
 const ITEMS_PER_PAGE = 6;
-export async function fetchFilteredInvoices(
+export async function getFilteredInvoices(
   query: string,
   currentPage: number,
 ): Promise<InvoicesTable[]> {
@@ -109,11 +109,11 @@ export async function fetchFilteredInvoices(
     return invoices.rows;
   } catch (error) {
     console.error('Database Error:', error);
-    throw new Error('Failed to fetch invoices.');
+    throw new Error('Failed to get invoices.');
   }
 }
 
-export async function fetchInvoicesPages(query: string): Promise<number> {
+export async function getInvoicesPages(query: string): Promise<number> {
   try {
     const count = await sql`SELECT COUNT(*)
     FROM invoices
@@ -130,11 +130,11 @@ export async function fetchInvoicesPages(query: string): Promise<number> {
     return totalPages;
   } catch (error) {
     console.error('Database Error:', error);
-    throw new Error('Failed to fetch total number of invoices.');
+    throw new Error('Failed to get total number of invoices.');
   }
 }
 
-export async function fetchInvoiceById(id: string): Promise<InvoiceForm> {
+export async function getInvoiceById(id: string): Promise<InvoiceForm> {
   try {
     const data = await sql<InvoiceForm>`
       SELECT
@@ -158,7 +158,7 @@ export async function fetchInvoiceById(id: string): Promise<InvoiceForm> {
     return invoice[0];
   } catch (error) {
     console.error('Database Error:', error);
-    throw new Error('Failed to fetch invoice.');
+    throw new Error('Failed to get invoice.');
   }
 }
 

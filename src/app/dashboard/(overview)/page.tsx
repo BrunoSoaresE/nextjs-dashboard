@@ -12,10 +12,7 @@ import CardWrapper from '@/src/ui/invoices/dashboard/cards';
 
  
 export default async function Page() {
-  //  const { numberOfCustomers,
-  //           numberOfInvoices,
-  //           totalPaidInvoices,
-  //           totalPendingInvoices, } = await fetchCardData();
+
 
   return (
     <main>

@@ -1,7 +1,7 @@
 import Form from '@/src/ui/invoices/edit-form';
 import Breadcrumbs from '@/src/ui/invoices/breadcrumbs';
-import { fetchInvoiceById } from '@/src/lib/repository/invoices.repository';
-import { fetchCustomers } from '@/src/lib/repository/customers.repository';
+import { getInvoiceById } from '@/src/lib/repository/invoices.repository';
+import { getCustomers } from '@/src/lib/repository/customers.repository';
 import notFound from './not-found';
 
  import { Metadata } from 'next';
@@ -14,8 +14,8 @@ export default async function Page({ params }: { params: { id: string } }) {
   const id = params.id;
 
    const [invoice, customers] = await Promise.all([
-    fetchInvoiceById(id),
-    fetchCustomers(),
+    getInvoiceById(id),
+    getCustomers(),
    ]);
   
    if (!invoice) {
