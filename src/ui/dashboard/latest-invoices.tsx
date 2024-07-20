@@ -1,12 +1,12 @@
-import { fetchLatestInvoices } from '@/src/lib/data';
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { lusitana } from '../fonts';
+import { getLatestInvoices } from '@/src/lib/repository/invoice-repository';
 
 
 export default async function LatestInvoices() {
-  const latestInvoices = await fetchLatestInvoices();
+  const latestInvoices = await getLatestInvoices();
 
 
   return (

@@ -2,9 +2,9 @@
 
 import { AtSymbolIcon, KeyIcon, ArrowRightIcon, ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import { useActionState } from "react";
-import { authenticate } from "../lib/actions";
 import { Button } from "./button";
 import { lusitana } from "./fonts";
+import { authenticate } from "../lib/actions/authenticate-actions";
 
  
 

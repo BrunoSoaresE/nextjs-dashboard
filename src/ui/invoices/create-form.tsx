@@ -8,9 +8,9 @@ import {
   UserCircleIcon,
 } from '@heroicons/react/24/outline';
 import { useActionState } from 'react';
-import { createInvoice, State } from '@/src/lib/actions';
 import { Button } from '../button';
 import { CustomerField } from '@/src/models/definitions';
+import { createInvoice, State } from '@/src/lib/actions/invoice-actions';
 
 
 export default function Form({ customers }: { customers: CustomerField[] }) {

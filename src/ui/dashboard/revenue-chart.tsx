@@ -6,13 +6,13 @@
 // https://www.chartjs.org/
 // https://airbnb.io/visx/
 
-import { fetchRevenue } from "@/src/lib/data";
 import { generateYAxis } from "@/src/lib/utils";
 import { CalendarIcon } from "@heroicons/react/24/outline";
 import { lusitana } from "../fonts";
+import { getRevenue } from "@/src/lib/repository/revenue-repository";
 
 export default async function RevenueChart() {
-  const revenue = await fetchRevenue(); // Fetch data inside the component
+  const revenue = await getRevenue(); // Fetch data inside the component
 
   const chartHeight = 350;
   // NOTE: Uncomment this code in Chapter 7
