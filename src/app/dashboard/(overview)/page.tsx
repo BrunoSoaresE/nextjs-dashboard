@@ -1,8 +1,6 @@
-// import { Card } from '@/app/ui/dashboard/cards';
 import RevenueChart from '@/src/ui/invoices/dashboard/revenue-chart';
 import LatestInvoices from '@/src/ui/invoices/dashboard/latest-invoices';
 import { lusitana } from '@/src/ui/fonts';
-// import {  fetchCardData } from '@/app/lib/data';
 import { Suspense } from 'react';
 import {
   RevenueChartSkeleton,

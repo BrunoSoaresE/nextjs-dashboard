@@ -8,7 +8,7 @@ import {
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { Button } from '@/src/ui/button';
 import { useActionState } from 'react';
-import { authenticate } from '@/src/lib/actions';
+import { authenticate } from '@/src/lib/actions/authenticate.actions';
 import { lusitana } from './fonts';
  
 export default function LoginForm() {

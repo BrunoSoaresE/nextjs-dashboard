@@ -5,7 +5,7 @@ import { CreateInvoice } from '@/src/ui/invoices/buttons';
 import { lusitana } from '@/src/ui/fonts';
 import { InvoicesTableSkeleton } from '@/src/ui/skeletons';
 import { Suspense } from 'react';
-import { fetchInvoicesPages } from '@/src/lib/data';
+import { fetchInvoicesPages } from '@/src/lib/repository/invoices.repository';
  
 
  import { Metadata } from 'next';

@@ -1,36 +1,11 @@
 import { sql } from '@vercel/postgres';
-import {
-  CustomerField,
-  CustomersTableType,
-  InvoiceForm,
-  InvoicesTable,
-  LatestInvoiceRaw,
-  Revenue,
-} from './definitions';
-import { formatCurrency } from './utils';
 
-export async function fetchRevenue() {
-  try {
-    // Artificially delay a response for demo purposes.
-    // Don't do this in production :)
 
-    console.log('Fetching revenue data...');
-    console.log('Fetching revenue data...');
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+import { formatCurrency } from '../utils';
+import { LatestInvoiceRaw, InvoicesTable, InvoiceForm, InvoicesCards, LatestInvoice } from '@/src/models/invoice';
 
-    const data = await sql<Revenue>`SELECT * FROM revenue`;
 
-    console.log('Data fetch completed after 3 seconds.');
-    console.log('Data fetch completed after 3 seconds.');
-
-    return data.rows;
-  } catch (error) {
-    console.error('Database Error:', error);
-    throw new Error('Failed to fetch revenue data.');
-  }
-}
-
-export async function fetchLatestInvoices() {
+export async function fetchLatestInvoices(): Promise<LatestInvoice[]> {
   try {
 
     console.log('Fetching fetchLatestInvoices...');
@@ -55,10 +30,10 @@ export async function fetchLatestInvoices() {
     const latestInvoices = data.rows.map((invoice) => ({
       ...invoice,
       amount: formatCurrency(invoice.amount),
-
-
-
     }));
+
+
+
     return latestInvoices;
   } catch (error) {
     console.error('Database Error:', error);
@@ -66,7 +41,7 @@ export async function fetchLatestInvoices() {
   }
 }
 
-export async function fetchCardData() {
+export async function fetchCardData(): Promise<InvoicesCards> {
   try {
     // You can probably combine these into a single SQL query
     // However, we are intentionally splitting them to demonstrate
@@ -94,7 +69,8 @@ export async function fetchCardData() {
       numberOfInvoices,
       totalPaidInvoices,
       totalPendingInvoices,
-    };
+    } as InvoicesCards;
+
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch card data.');
@@ -105,7 +81,7 @@ const ITEMS_PER_PAGE = 6;
 export async function fetchFilteredInvoices(
   query: string,
   currentPage: number,
-) {
+): Promise<InvoicesTable[]> {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
   try {
@@ -137,7 +113,7 @@ export async function fetchFilteredInvoices(
   }
 }
 
-export async function fetchInvoicesPages(query: string) {
+export async function fetchInvoicesPages(query: string): Promise<number> {
   try {
     const count = await sql`SELECT COUNT(*)
     FROM invoices
@@ -158,7 +134,7 @@ export async function fetchInvoicesPages(query: string) {
   }
 }
 
-export async function fetchInvoiceById(id: string) {
+export async function fetchInvoiceById(id: string): Promise<InvoiceForm> {
   try {
     const data = await sql<InvoiceForm>`
       SELECT
@@ -186,53 +162,53 @@ export async function fetchInvoiceById(id: string) {
   }
 }
 
-export async function fetchCustomers() {
+
+
+export async function addInvoices(customerId: string, amountInCents: number, status: string, date: string): Promise<void> {
   try {
-    const data = await sql<CustomerField>`
-      SELECT
-        id,
-        name
-      FROM customers
-      ORDER BY name ASC
+
+      await sql`
+          INSERT INTO invoices (customer_id, amount, status, date)
+          VALUES (${customerId}, ${amountInCents}, ${status}, ${date})
+      `;
+    
+    
+  } catch (error) {
+    console.error('Database Error: Failed to Create Invoice:', error);
+    throw new Error('Database Error: Failed to Create Invoice.');
+  }
+}
+
+
+
+export async function updateInvoices(id: string,customerId: string, amountInCents: number, status: string): Promise<void>{
+  try {
+
+      await sql`
+      UPDATE invoices
+      SET customer_id = ${customerId}, amount = ${amountInCents}, status = ${status}
+      WHERE id = ${id}
     `;
-
-    const customers = data.rows;
-    return customers;
-  } catch (err) {
-    console.error('Database Error:', err);
-    throw new Error('Failed to fetch all customers.');
+    
+    
+  } catch (error) {
+    console.error('Database Error: Failed to Update Invoice:', error);
+    throw new Error('Database Error: Failed to Update Invoice.');
   }
 }
 
-export async function fetchFilteredCustomers(query: string) {
+export async function deleteInvoices(id: string): Promise<void> {
   try {
-    const data = await sql<CustomersTableType>`
-		SELECT
-		  customers.id,
-		  customers.name,
-		  customers.email,
-		  customers.image_url,
-		  COUNT(invoices.id) AS total_invoices,
-		  SUM(CASE WHEN invoices.status = 'pending' THEN invoices.amount ELSE 0 END) AS total_pending,
-		  SUM(CASE WHEN invoices.status = 'paid' THEN invoices.amount ELSE 0 END) AS total_paid
-		FROM customers
-		LEFT JOIN invoices ON customers.id = invoices.customer_id
-		WHERE
-		  customers.name ILIKE ${`%${query}%`} OR
-        customers.email ILIKE ${`%${query}%`}
-		GROUP BY customers.id, customers.name, customers.email, customers.image_url
-		ORDER BY customers.name ASC
-	  `;
 
-    const customers = data.rows.map((customer) => ({
-      ...customer,
-      total_pending: formatCurrency(customer.total_pending),
-      total_paid: formatCurrency(customer.total_paid),
-    }));
-
-    return customers;
-  } catch (err) {
-    console.error('Database Error:', err);
-    throw new Error('Failed to fetch customer table.');
+       await sql`DELETE FROM invoices WHERE id = ${id}`;
+    
+  } catch (error) {
+    console.error('Database Error: Failed to Delete Invoice:', error);
+    throw new Error('Database Error: Failed to Delete Invoice.');
   }
 }
+
+
+
+
+
